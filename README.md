@@ -6,19 +6,13 @@
 [![Discuss][gh-discuss-badge]][gh-discuss-link]
 [![License][license-image]][license-link]
 
-Strategy based on the TDI indicator.
-
-This is example tdi strategy for the tdinstration purposes.
+Strategy based on Traders Dynamic Index (TDI) indicator.
 
 ## Dependencies
 
 | Tag      | Framework |
 |:--------:|:---------:|
-| v1.000   | v2.000    |
-| v1.001   | v2.001    |
-| ...      | ...       |
-| v1.009   | v2.009    |
-| v1.010   | v2.010    |
+| v2.000   | v3.000.1  |
 
 <!-- Named links -->
 

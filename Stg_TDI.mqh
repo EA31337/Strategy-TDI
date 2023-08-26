@@ -27,14 +27,14 @@ INPUT float TDI_OrderCloseProfit = 80;      // Order close profit
 INPUT int TDI_OrderCloseTime = -30;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("TDI strategy: TDI indicator params");
 INPUT ENUM_IDATA_SOURCE_TYPE TDI_Indi_TDI_SourceType = IDATA_INDICATOR;  // Source type
-INPUT int TDI_Indi_TDI_RSI_Period = 13;         // RSI Period (8-25)
-INPUT int TDI_Indi_TDI_RSI_Price = 0;           // RSI Price (0-6)
-INPUT int TDI_Indi_TDI_Volatility_Band = 34;    // Volatility Band (20-40)
-INPUT int TDI_Indi_TDI_RSI_Price_Line = 2;      // RSI Price Line
-INPUT int TDI_Indi_TDI_RSI_Price_Type = 0;      // RSI Price Type (0-3)
-INPUT int TDI_Indi_TDI_Trade_Signal_Line = 7;   // Trade Signal Line
-INPUT int TDI_Indi_TDI_Trade_Signal_Type = 0;   // Trade Signal Type (0-3)
-INPUT int TDI_Indi_TDI_Shift = 0;  // Shift
+INPUT int TDI_Indi_TDI_RSI_Period = 13;                                  // RSI Period (8-25)
+INPUT int TDI_Indi_TDI_RSI_Price = 0;                                    // RSI Price (0-6)
+INPUT int TDI_Indi_TDI_Volatility_Band = 34;                             // Volatility Band (20-40)
+INPUT int TDI_Indi_TDI_RSI_Price_Line = 2;                               // RSI Price Line
+INPUT int TDI_Indi_TDI_RSI_Price_Type = 0;                               // RSI Price Type (0-3)
+INPUT int TDI_Indi_TDI_Trade_Signal_Line = 7;                            // Trade Signal Line
+INPUT int TDI_Indi_TDI_Trade_Signal_Type = 0;                            // Trade Signal Type (0-3)
+INPUT int TDI_Indi_TDI_Shift = 0;                                        // Shift
 
 // Structs.
 
@@ -88,7 +88,10 @@ class Stg_TDI : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    IndiTDIParams _indi_params(::TDI_Indi_TDI_Shift);
+    IndiTDIParams _indi_params(::TDI_Indi_TDI_RSI_Period, ::TDI_Indi_TDI_RSI_Price, ::TDI_Indi_TDI_Volatility_Band,
+                               ::TDI_Indi_TDI_RSI_Price_Line, ::TDI_Indi_TDI_RSI_Price_Type,
+                               ::TDI_Indi_TDI_Trade_Signal_Line, ::TDI_Indi_TDI_Trade_Signal_Type,
+                               ::TDI_Indi_TDI_Shift);
     _indi_params.SetTf(Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
     SetIndicator(new Indi_TDI(_indi_params));
   }
@@ -123,7 +126,6 @@ class Stg_TDI : public Strategy {
     }
     return _result;
   }
-
 
   /**
    * Checks strategy's trade close signal.
@@ -160,5 +162,4 @@ class Stg_TDI : public Strategy {
     }
     return _result;
   }
-
 };

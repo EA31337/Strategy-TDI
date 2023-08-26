@@ -53,7 +53,7 @@ struct IndiTDIParams : public IndicatorParams {
   int trade_signal_type;
   // Struct constructors.
   IndiTDIParams(int _rsi_period = 13, int _rsi_price = 0, int _volatility_band = 34, int _rsi_price_line = 2,
-                    int _rsi_price_type = 0, int _trade_signal_line = 7, int _trade_signal_type = 0, int _shift = 0)
+                int _rsi_price_type = 0, int _trade_signal_line = 7, int _trade_signal_type = 0, int _shift = 0)
       : rsi_period(_rsi_period),
         rsi_price(_rsi_price),
         volatility_band(_volatility_band),
@@ -76,7 +76,7 @@ struct IndiTDIParams : public IndicatorParams {
   }
   // Getters.
   int GetRSIPeriod() { return rsi_period; }
-  int GetPrice() { return rsi_price; }
+  int GetRSIPrice() { return rsi_price; }
   int GetVolatilityBand() { return volatility_band; }
   int GetRSIPriceLine() { return rsi_price_line; }
   int GetRSIPriceType() { return rsi_price_type; }
@@ -84,7 +84,7 @@ struct IndiTDIParams : public IndicatorParams {
   int GetTradeSignalType() { return trade_signal_type; }
   // Setters.
   void SetRSIPeriod(int _value) { rsi_period = _value; }
-  void SetPrice(int _value) { rsi_price = _value; }
+  void SetRSIPrice(int _value) { rsi_price = _value; }
   void SetVolatilityBand(int _value) { volatility_band = _value; }
   void SetRSIPriceLine(int _value) { rsi_price_line = _value; }
   void SetRSIPriceType(int _value) { rsi_price_type = _value; }
@@ -114,11 +114,8 @@ class Indi_TDI : public Indicator<IndiTDIParams> {
       case IDATA_ICUSTOM:
         _value = iCustom(istate.handle, Get<string>(CHART_PARAM_SYMBOL), Get<ENUM_TIMEFRAMES>(CHART_PARAM_TF),
                          iparams.custom_indi_name, Get<ENUM_TIMEFRAMES>(CHART_PARAM_TF), iparams.GetRSIPeriod(),
-                         iparams.GetPrice(), iparams.GetVolatilityBand(), iparams.GetRSIPriceLine(),
-                         iparams.GetRSIPriceType(),
-                         iparams.GetTradeSignalLine(),
-                         iparams.GetTradeSignalType(),
-                         _mode,
+                         iparams.GetRSIPrice(), iparams.GetVolatilityBand(), iparams.GetRSIPriceLine(),
+                         iparams.GetRSIPriceType(), iparams.GetTradeSignalLine(), iparams.GetTradeSignalType(), _mode,
                          _ishift);
         break;
       default:

@@ -110,17 +110,55 @@ class Stg_TDI : public Strategy {
         // Buy signal.
         // Trade Long when RSI PL > TSL
         _result &= _indi[(int)TDI_RSI_MA_LINE][_ishift] > _indi[(int)TDI_TRADE_SIGNAL_LINE][_ishift];
-        // _result &= _indi.IsIncreasing(1, 0, _shift);
-        // _result &= _indi.IsIncByPct(_level / 10, 0, _shift, 2);
+        _result &= _indi.IsIncreasing(1, TDI_RSI_MA_LINE, _ishift);
+        _result &= _indi.IsIncByPct(_level, 0, _ishift, 2);
         break;
       case ORDER_TYPE_SELL:
         // Sell signal.
         // Trade Short when RSI PL < TSL
         _result &= _indi[(int)TDI_RSI_MA_LINE][_ishift] < _indi[(int)TDI_TRADE_SIGNAL_LINE][_ishift];
-        // _result &= _indi.IsDecreasing(1, 0, _shift);
-        // _result &= _indi.IsDecByPct(_level / 10, 0, _shift, 2);
+        _result &= _indi.IsDecreasing(1, TDI_RSI_MA_LINE, _ishift);
+        _result &= _indi.IsDecByPct(_level, 0, _ishift, 2);
         break;
     }
     return _result;
   }
+
+
+  /**
+   * Checks strategy's trade close signal.
+   *
+   * @result bool
+   *   Returns true when trade should be closed, otherwise false.
+   */
+  virtual bool SignalClose(ENUM_ORDER_TYPE _cmd, int _method = 0, float _level = 0.0f, int _shift = 0) {
+    Indi_TDI *_indi = GetIndicator();
+    int _ishift = _shift + ::TDI_Indi_TDI_Shift;
+    bool _result =
+        _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _ishift) && _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _ishift + 1);
+    if (!_result) {
+      // Returns false when indicator data is not valid.
+      return false;
+    }
+    switch (_cmd) {
+      case ORDER_TYPE_BUY:
+        // Close long trade.
+        // Exit trade when RSI PL & TSL crossover.
+        _result &= _indi[(int)TDI_RSI_MA_LINE][_ishift] < _indi[(int)TDI_TRADE_SIGNAL_LINE][_ishift];
+        _result &= _indi[(int)TDI_RSI_MA_LINE][_ishift + 2] > _indi[(int)TDI_TRADE_SIGNAL_LINE][_ishift + 2];
+        _result &= _indi.IsDecreasing(1, TDI_RSI_MA_LINE, _ishift);
+        //_result &= _indi.IsIncByPct(_level, 0, _shift, 2);
+        break;
+      case ORDER_TYPE_SELL:
+        // Close short trade.
+        // Exit trade when RSI PL & TSL crossover.
+        _result &= _indi[(int)TDI_RSI_MA_LINE][_ishift] > _indi[(int)TDI_TRADE_SIGNAL_LINE][_ishift];
+        _result &= _indi[(int)TDI_RSI_MA_LINE][_ishift + 2] < _indi[(int)TDI_TRADE_SIGNAL_LINE][_ishift + 2];
+        _result &= _indi.IsIncreasing(1, TDI_RSI_MA_LINE, _ishift);
+        //_result &= _indi.IsDecByPct(_level, 0, _shift, 2);
+        break;
+    }
+    return _result;
+  }
+
 };

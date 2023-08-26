@@ -30,9 +30,12 @@
 
 // Indicator line identifiers used in the indicator.
 enum ENUM_TDI_MODE {
-  TDI_MAIN = 0,   // Main line.
-  TDI_UPPER = 1,  // Upper limit.
-  TDI_LOWER = 2,  // Lower limit.
+  TDI_RSI_LINE = 0,       // RSI line
+  TDI_UP_LINE,            // VB High
+  TDI_MID_LINE,           // Base line
+  TDI_DN_LINE,            // VB Low
+  TDI_RSI_MA_LINE,        // RSI MA Price Line
+  TDI_TRADE_SIGNAL_LINE,  // Trade Signal Line
   FINAL_TDI_MODE_ENTRY,
 };
 
@@ -131,7 +134,7 @@ class Indi_TDI : public Indicator<IndiTDIParams> {
    */
   virtual bool IsValidEntry(IndicatorDataEntry &_entry) {
     return Indicator<IndiTDIParams>::IsValidEntry(_entry) && _entry.GetMin<double>() > 0 &&
-           _entry.values[(int)TDI_UPPER].IsGt<double>(_entry[(int)TDI_LOWER]);
+           _entry.values[(int)TDI_UP_LINE].IsGt<double>(_entry[(int)TDI_DN_LINE]);
   }
 };
 

@@ -27,13 +27,13 @@ INPUT float TDI_OrderCloseProfit = 80;      // Order close profit
 INPUT int TDI_OrderCloseTime = -30;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("TDI strategy: TDI indicator params");
 INPUT ENUM_IDATA_SOURCE_TYPE TDI_Indi_TDI_SourceType = IDATA_INDICATOR;  // Source type
-INPUT int RSI_Period = 13;         // RSI Period (8-25)
-INPUT int RSI_Price = 0;           // RSI Price (0-6)
-INPUT int Volatility_Band = 34;    // Volatility Band (20-40)
-INPUT int RSI_Price_Line = 2;      // RSI Price Line
-INPUT int RSI_Price_Type = 0;      // RSI Price Type (0-3)
-INPUT int Trade_Signal_Line = 7;   // Trade Signal Line
-INPUT int Trade_Signal_Type = 0;   // Trade Signal Type (0-3)
+INPUT int TDI_Indi_TDI_RSI_Period = 13;         // RSI Period (8-25)
+INPUT int TDI_Indi_TDI_RSI_Price = 0;           // RSI Price (0-6)
+INPUT int TDI_Indi_TDI_Volatility_Band = 34;    // Volatility Band (20-40)
+INPUT int TDI_Indi_TDI_RSI_Price_Line = 2;      // RSI Price Line
+INPUT int TDI_Indi_TDI_RSI_Price_Type = 0;      // RSI Price Type (0-3)
+INPUT int TDI_Indi_TDI_Trade_Signal_Line = 7;   // Trade Signal Line
+INPUT int TDI_Indi_TDI_Trade_Signal_Type = 0;   // Trade Signal Type (0-3)
 INPUT int TDI_Indi_TDI_Shift = 0;  // Shift
 
 // Structs.
@@ -98,25 +98,27 @@ class Stg_TDI : public Strategy {
    */
   bool SignalOpen(ENUM_ORDER_TYPE _cmd, int _method, float _level = 0.0f, int _shift = 0) {
     Indi_TDI *_indi = GetIndicator();
+    int _ishift = _shift + ::TDI_Indi_TDI_Shift;
     bool _result =
-        _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _shift) && _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _shift + 1);
+        _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _ishift) && _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _ishift + 1);
     if (!_result) {
       // Returns false when indicator data is not valid.
       return false;
     }
-    IndicatorSignal _signals = _indi.GetSignals(4, _shift);
     switch (_cmd) {
       case ORDER_TYPE_BUY:
         // Buy signal.
-        _result &= _indi.IsIncreasing(1, 0, _shift);
-        _result &= _indi.IsIncByPct(_level / 10, 0, _shift, 2);
-        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+        // Trade Long when RSI PL > TSL
+        _result &= _indi[(int)TDI_RSI_MA_LINE][_ishift] > _indi[(int)TDI_TRADE_SIGNAL_LINE][_ishift];
+        // _result &= _indi.IsIncreasing(1, 0, _shift);
+        // _result &= _indi.IsIncByPct(_level / 10, 0, _shift, 2);
         break;
       case ORDER_TYPE_SELL:
         // Sell signal.
-        _result &= _indi.IsDecreasing(1, 0, _shift);
-        _result &= _indi.IsDecByPct(_level / 10, 0, _shift, 2);
-        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+        // Trade Short when RSI PL < TSL
+        _result &= _indi[(int)TDI_RSI_MA_LINE][_ishift] < _indi[(int)TDI_TRADE_SIGNAL_LINE][_ishift];
+        // _result &= _indi.IsDecreasing(1, 0, _shift);
+        // _result &= _indi.IsDecByPct(_level / 10, 0, _shift, 2);
         break;
     }
     return _result;

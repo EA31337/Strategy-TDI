@@ -11,3 +11,8 @@
 
 // Includes the main code.
 #include "Stg_TDI.mq5"
+
+// Load external resources.
+#ifdef __resource__
+#resource INDI_TDI_PATH + MQL_EXT
+#endif

@@ -8,7 +8,6 @@
 
 // Includes EA31337 framework.
 #include <EA31337-classes/EA.mqh>
-#include <EA31337-classes/Indicators/Indi_TDI.mqh>
 #include <EA31337-classes/Strategy.mqh>
 
 // Inputs.
@@ -35,6 +34,19 @@ input bool Info_On_Chart = true;          // Display info on chart.
 #endif
 #property link ea_link
 #property copyright "Copyright 2016-2023, EA31337 Ltd"
+#ifdef __resource__
+#ifdef __MQL5__
+#property tester_indicator "::" + INDI_TDI_PATH + MQL_EXT
+#property tester_library "::" + INDI_TDI_PATH + MQL_EXT
+#endif
+#endif
+
+// Load external resources.
+#ifdef __resource__
+#ifdef __MQL5__
+#resource INDI_TDI_PATH + MQL_EXT
+#endif
+#endif
 
 // Class variables.
 EA *ea;

@@ -3,6 +3,9 @@
  * Implements TDI strategy based on the TDI indicator.
  */
 
+// Includes.
+#include "Indi_TDI.mqh"
+
 // User input params.
 INPUT_GROUP("TDI strategy: strategy params");
 INPUT float TDI_LotSize = 0;                // Lot size
@@ -23,8 +26,15 @@ INPUT float TDI_OrderCloseLoss = 80;        // Order close loss
 INPUT float TDI_OrderCloseProfit = 80;      // Order close profit
 INPUT int TDI_OrderCloseTime = -30;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("TDI strategy: TDI indicator params");
-INPUT int TDI_Indi_TDI_Shift = 0;                                        // Shift
 INPUT ENUM_IDATA_SOURCE_TYPE TDI_Indi_TDI_SourceType = IDATA_INDICATOR;  // Source type
+INPUT int RSI_Period = 13;         // RSI Period (8-25)
+INPUT int RSI_Price = 0;           // RSI Price (0-6)
+INPUT int Volatility_Band = 34;    // Volatility Band (20-40)
+INPUT int RSI_Price_Line = 2;      // RSI Price Line
+INPUT int RSI_Price_Type = 0;      // RSI Price Type (0-3)
+INPUT int Trade_Signal_Line = 7;   // Trade Signal Line
+INPUT int Trade_Signal_Type = 0;   // Trade Signal Type (0-3)
+INPUT int TDI_Indi_TDI_Shift = 0;  // Shift
 
 // Structs.
 

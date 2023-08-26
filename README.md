@@ -1,4 +1,4 @@
-# Strategy Demo
+# Strategy TDI
 
 [![Status][gha-image-check-master]][gha-link-check-master]
 [![Status][gha-image-compile-master]][gha-link-compile-master]
@@ -6,29 +6,23 @@
 [![Discuss][gh-discuss-badge]][gh-discuss-link]
 [![License][license-image]][license-link]
 
-Strategy based on the Demo indicator.
-
-This is example demo strategy for the demonstration purposes.
+Strategy based on Traders Dynamic Index (TDI) indicator.
 
 ## Dependencies
 
 | Tag      | Framework |
 |:--------:|:---------:|
-| v1.000   | v2.000    |
-| v1.001   | v2.001    |
-| ...      | ...       |
-| v1.009   | v2.009    |
-| v1.010   | v2.010    |
+| v2.000   | v3.000.1  |
 
 <!-- Named links -->
 
 [gh-discuss-badge]: https://img.shields.io/badge/Discussions-Q&A-blue.svg?logo=github
 [gh-discuss-link]: https://github.com/EA31337/EA31337-Strategies/discussions
 
-[gha-link-check-master]: https://github.com/EA31337/Strategy-Demo/actions?query=workflow:Check+branch%3Amaster
-[gha-image-check-master]: https://github.com/EA31337/Strategy-Demo/workflows/Check/badge.svg?branch=master
-[gha-link-compile-master]: https://github.com/EA31337/Strategy-Demo/actions?query=workflow:Compile+branch%3Amaster
-[gha-image-compile-master]: https://github.com/EA31337/Strategy-Demo/workflows/Compile/badge.svg?branch=master
+[gha-link-check-master]: https://github.com/EA31337/Strategy-TDI/actions?query=workflow:Check+branch%3Amaster
+[gha-image-check-master]: https://github.com/EA31337/Strategy-TDI/workflows/Check/badge.svg?branch=master
+[gha-link-compile-master]: https://github.com/EA31337/Strategy-TDI/actions?query=workflow:Compile+branch%3Amaster
+[gha-image-compile-master]: https://github.com/EA31337/Strategy-TDI/workflows/Compile/badge.svg?branch=master
 
 [tg-channel-image]: https://img.shields.io/badge/Telegram-join-0088CC.svg?logo=telegram
 [tg-channel-link]: https://t.me/EA31337

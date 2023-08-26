@@ -1,6 +1,6 @@
 /**
  * @file
- * Implements Demo strategy.
+ * Implements TDI strategy.
  */
 
 // Includes conditional compilation directives.
@@ -8,7 +8,7 @@
 
 // Includes EA31337 framework.
 #include <EA31337-classes/EA.mqh>
-#include <EA31337-classes/Indicators/Indi_Demo.mqh>
+#include <EA31337-classes/Indicators/Indi_TDI.mqh>
 #include <EA31337-classes/Strategy.mqh>
 
 // Inputs.
@@ -18,13 +18,13 @@ input ENUM_LOG_LEVEL Log_Level = V_INFO;  // Log level.
 input bool Info_On_Chart = true;          // Display info on chart.
 
 // Includes strategy.
-#include "Stg_Demo.mqh"
+#include "Stg_TDI.mqh"
 
 // Defines.
-#define ea_name "Strategy Demo"
-#define ea_version "1.010"
+#define ea_name "Strategy TDI"
+#define ea_version "2.000"
 #define ea_desc "Strategy based on EA31337 framework."
-#define ea_link "https://github.com/EA31337/Strategy-Demo"
+#define ea_link "https://github.com/EA31337/Strategy-TDI"
 #define ea_author "EA31337 Ltd"
 
 // Properties.
@@ -34,7 +34,7 @@ input bool Info_On_Chart = true;          // Display info on chart.
 #property description ea_desc
 #endif
 #property link ea_link
-#property copyright "Copyright 2016-2022, EA31337 Ltd"
+#property copyright "Copyright 2016-2023, EA31337 Ltd"
 
 // Class variables.
 EA *ea;
@@ -50,7 +50,7 @@ int OnInit() {
   bool _result = true;
   EAParams ea_params(__FILE__, Log_Level);
   ea = new EA(ea_params);
-  _result &= ea.StrategyAdd<Stg_Demo>(Active_Tfs);
+  _result &= ea.StrategyAdd<Stg_TDI>(Active_Tfs);
   return (_result ? INIT_SUCCEEDED : INIT_FAILED);
 }
 

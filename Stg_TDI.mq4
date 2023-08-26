@@ -14,5 +14,5 @@
 
 // Load external resources.
 #ifdef __resource__
-#resource INDI_TDI_PATH + MQL_EXT
+#resource "\\" + INDI_TDI_PATH + MQL_EXT
 #endif

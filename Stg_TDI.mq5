@@ -44,7 +44,7 @@ input bool Info_On_Chart = true;          // Display info on chart.
 // Load external resources.
 #ifdef __resource__
 #ifdef __MQL5__
-#resource INDI_TDI_PATH + MQL_EXT
+#resource "\\" + INDI_TDI_PATH + MQL_EXT
 #endif
 #endif
 

@@ -25,7 +25,7 @@
 
 // Defines
 #ifndef INDI_TDI_PATH
-#define INDI_TDI_PATH "indicators-other\\Oscillators\\Multi\\Traders Dynamic Index"
+#define INDI_TDI_PATH "indicators-other\\Oscillators\\Multi\\TDI"
 #endif
 
 // Indicator line identifiers used in the indicator.

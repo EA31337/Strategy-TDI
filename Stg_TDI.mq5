@@ -36,15 +36,15 @@ input bool Info_On_Chart = true;          // Display info on chart.
 #property copyright "Copyright 2016-2023, EA31337 Ltd"
 #ifdef __resource__
 #ifdef __MQL5__
-#property tester_indicator "::" + INDI_TDI_PATH + MQL_EXT
-#property tester_library "::" + INDI_TDI_PATH + MQL_EXT
+#property tester_indicator "::" + INDI_TDI_PATH + "\\Traders Dynamic Index" + MQL_EXT
+#property tester_library "::" + INDI_TDI_PATH + "\\Traders Dynamic Index" + MQL_EXT
 #endif
 #endif
 
 // Load external resources.
 #ifdef __resource__
 #ifdef __MQL5__
-#resource INDI_TDI_PATH + MQL_EXT
+#resource INDI_TDI_PATH + "\\Traders Dynamic Index" + MQL_EXT
 #endif
 #endif
 

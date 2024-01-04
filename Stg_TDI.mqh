@@ -28,12 +28,12 @@ INPUT int TDI_OrderCloseTime = -30;         // Order close time in mins (>0) or 
 INPUT_GROUP("TDI strategy: TDI indicator params");
 INPUT ENUM_IDATA_SOURCE_TYPE TDI_Indi_TDI_SourceType = IDATA_INDICATOR;  // Source type
 INPUT int TDI_Indi_TDI_RSI_Period = 13;                                  // RSI Period (8-25)
-INPUT int TDI_Indi_TDI_RSI_Price = 0;                                    // RSI Price (0-6)
+INPUT ENUM_APPLIED_PRICE TDI_Indi_TDI_RSI_Price = PRICE_CLOSE;           // RSI Price
 INPUT int TDI_Indi_TDI_Volatility_Band = 34;                             // Volatility Band (20-40)
 INPUT int TDI_Indi_TDI_RSI_Price_Line = 2;                               // RSI Price Line
-INPUT int TDI_Indi_TDI_RSI_Price_Type = 0;                               // RSI Price Type (0-3)
+INPUT ENUM_MA_METHOD TDI_Indi_TDI_RSI_Price_Type = MODE_SMA;             // RSI Price Type
 INPUT int TDI_Indi_TDI_Trade_Signal_Line = 7;                            // Trade Signal Line
-INPUT int TDI_Indi_TDI_Trade_Signal_Type = 0;                            // Trade Signal Type (0-3)
+INPUT ENUM_MA_METHOD TDI_Indi_TDI_Trade_Signal_Type = MODE_SMA;          // Trade Signal Type
 INPUT int TDI_Indi_TDI_Shift = 0;                                        // Shift
 
 // Structs.

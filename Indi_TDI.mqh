@@ -45,15 +45,16 @@ enum ENUM_TDI_MODE {
 struct IndiTDIParams : public IndicatorParams {
   // Indicator params.
   int rsi_period;
-  int rsi_price;
+  ENUM_APPLIED_PRICE rsi_price;
   int volatility_band;
   int rsi_price_line;
-  int rsi_price_type;
+  ENUM_MA_METHOD rsi_price_type;
   int trade_signal_line;
-  int trade_signal_type;
+  ENUM_MA_METHOD trade_signal_type;
   // Struct constructors.
-  IndiTDIParams(int _rsi_period = 13, int _rsi_price = 0, int _volatility_band = 34, int _rsi_price_line = 2,
-                int _rsi_price_type = 0, int _trade_signal_line = 7, int _trade_signal_type = 0, int _shift = 0)
+  IndiTDIParams(int _rsi_period = 13, ENUM_APPLIED_PRICE _rsi_price = PRICE_CLOSE, int _volatility_band = 34,
+                int _rsi_price_line = 2, ENUM_MA_METHOD _rsi_price_type = MODE_SMA, int _trade_signal_line = 7,
+                ENUM_MA_METHOD _trade_signal_type = MODE_SMA, int _shift = 0)
       : rsi_period(_rsi_period),
         rsi_price(_rsi_price),
         volatility_band(_volatility_band),
@@ -76,20 +77,20 @@ struct IndiTDIParams : public IndicatorParams {
   }
   // Getters.
   int GetRSIPeriod() { return rsi_period; }
-  int GetRSIPrice() { return rsi_price; }
+  ENUM_APPLIED_PRICE GetRSIPrice() { return rsi_price; }
   int GetVolatilityBand() { return volatility_band; }
   int GetRSIPriceLine() { return rsi_price_line; }
-  int GetRSIPriceType() { return rsi_price_type; }
+  ENUM_MA_METHOD GetRSIPriceType() { return rsi_price_type; }
   int GetTradeSignalLine() { return trade_signal_line; }
-  int GetTradeSignalType() { return trade_signal_type; }
+  ENUM_MA_METHOD GetTradeSignalType() { return trade_signal_type; }
   // Setters.
   void SetRSIPeriod(int _value) { rsi_period = _value; }
-  void SetRSIPrice(int _value) { rsi_price = _value; }
+  void SetRSIPrice(ENUM_APPLIED_PRICE _value) { rsi_price = _value; }
   void SetVolatilityBand(int _value) { volatility_band = _value; }
   void SetRSIPriceLine(int _value) { rsi_price_line = _value; }
-  void SetRSIPriceType(int _value) { rsi_price_type = _value; }
+  void SetRSIPriceType(ENUM_MA_METHOD _value) { rsi_price_type = _value; }
   void SetTradeSignalLine(int _value) { trade_signal_line = _value; }
-  void SetTradeSignalType(int _value) { trade_signal_type = _value; }
+  void SetTradeSignalType(ENUM_MA_METHOD _value) { trade_signal_type = _value; }
 };
 
 /**
@@ -113,10 +114,17 @@ class Indi_TDI : public Indicator<IndiTDIParams> {
     switch (iparams.idstype) {
       case IDATA_ICUSTOM:
         _value = iCustom(istate.handle, Get<string>(CHART_PARAM_SYMBOL), Get<ENUM_TIMEFRAMES>(CHART_PARAM_TF),
-                         iparams.custom_indi_name, Get<ENUM_TIMEFRAMES>(CHART_PARAM_TF), iparams.GetRSIPeriod(),
-                         iparams.GetRSIPrice(), iparams.GetVolatilityBand(), iparams.GetRSIPriceLine(),
-                         iparams.GetRSIPriceType(), iparams.GetTradeSignalLine(), iparams.GetTradeSignalType(), _mode,
-                         _ishift);
+                         iparams.custom_indi_name, iparams.GetRSIPeriod(), iparams.GetRSIPrice(),
+                         iparams.GetVolatilityBand(), iparams.GetRSIPriceLine(), iparams.GetRSIPriceType(),
+                         iparams.GetTradeSignalLine(), iparams.GetTradeSignalType(), _mode, _ishift);
+        if (false) {
+          Print("iCustom(SYM: ", Get<string>(CHART_PARAM_SYMBOL), ", TF: ", Get<ENUM_TIMEFRAMES>(CHART_PARAM_TF),
+                ", RSPd: ", iparams.GetRSIPeriod(), ", RSPr: ", iparams.GetRSIPrice(),
+                ", VB: ", iparams.GetVolatilityBand(), ", RSIPl: ", iparams.GetRSIPriceLine(),
+                ", RSIPt: ", EnumToString(iparams.GetRSIPriceType()), ", TSL: ", iparams.GetTradeSignalLine(),
+                ", TSLT: ", EnumToString(iparams.GetTradeSignalType()), ", M: ", _mode, ", S: ", _ishift, ")");
+          Print(iparams.custom_indi_name, "[", _mode, "] @ ", _ishift, " = ", _value, ", _LastError = ", _LastError);
+        }
         break;
       default:
         SetUserError(ERR_INVALID_PARAMETER);
